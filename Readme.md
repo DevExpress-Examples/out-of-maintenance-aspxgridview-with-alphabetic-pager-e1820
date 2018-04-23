@@ -1,0 +1,10 @@
+# ASPxGridView with alphabetic pager
+
+
+<p>This example illustrates how to create a custom alphabetic pager. <br />
+In fact, Alphabetic pager is filtering by a column.<br />
+In this example we create a custom pager template, which contains anchors with alphabetic letters. After a click on an anchor the ASPxClientGridView.PerformCallback function is called with a parameter. On the server side, a new custom pager template is created in the ASPxGridView.CustomCallback event handler, and filtering by passed parameters takes place.</p>
+
+<br/>
+
+
