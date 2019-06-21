@@ -5,6 +5,9 @@
 * [Default.aspx.cs](./CS/WebSite/Default.aspx.cs) (VB: [Default.aspx.vb](./VB/WebSite/Default.aspx.vb))
 <!-- default file list end -->
 # ASPxGridView with alphabetic pager
+<!-- run online -->
+**[[Run Online]](https://codecentral.devexpress.com/e1820/)**
+<!-- run online end -->
 
 
 <p>This example illustrates how to create a custom alphabetic pager. <br />
