@@ -1,23 +1,30 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true"  CodeFile="Default.aspx.cs" Inherits="_Default" %>
 
-<%@ Register Assembly="DevExpress.Web.v13.1" Namespace="DevExpress.Web.ASPxEditors" TagPrefix="dx" %>
-<%@ Register Assembly="DevExpress.Web.v13.1" Namespace="DevExpress.Web.ASPxGridView" TagPrefix="dx" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ Register Assembly="DevExpress.Web.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web" TagPrefix="dx" %>
 
-<html xmlns="http://www.w3.org/1999/xhtml" >
-<head id="Head1" runat="server">
-    <title>Untitled Page</title>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title></title>
     <style type="text/css">
         .container {
+            display: flex;
+            flex-wrap: wrap;
             text-align: center;
-            padding: 5px 0; 
+            padding: 5px 0;
             font-size: 13pt;
         }
+
         .anchor {
-            padding: 0 10px; 
+            padding: 0 10px;
         }
+
         .active {
-            color: red !important;
+            color: navy !important;
+            font-weight:600;
         }
     </style>
     <script type="text/javascript">
@@ -26,25 +33,47 @@
         }
     </script>
 </head>
+
 <body>
     <form id="form1" runat="server">
-        <dx:ASPxGridView ID="Grid" runat="server" AutoGenerateColumns="False" DataSourceID="AccessDataSource1" 
-            KeyFieldName="CustomerID" ClientInstanceName="grid" OnCustomCallback="Grid_CustomCallback" Width="900">
-            <Columns>
-                <dx:GridViewDataTextColumn FieldName="CustomerID" />
-                <dx:GridViewDataTextColumn FieldName="CompanyName" />
-                <dx:GridViewDataTextColumn FieldName="Address"  />
-                <dx:GridViewDataTextColumn FieldName="City" />
-                <dx:GridViewDataTextColumn FieldName="Region" />
-                <dx:GridViewDataTextColumn FieldName="PostalCode" />
-                <dx:GridViewDataTextColumn FieldName="Country" />
-                <dx:GridViewDataTextColumn FieldName="Phone" />
-                <dx:GridViewDataTextColumn FieldName="Fax" />
-            </Columns>
-            <SettingsPager AlwaysShowPager="true" />
-        </dx:ASPxGridView>
-        <asp:AccessDataSource ID="AccessDataSource1" runat="server" DataFile="~/App_Data/nwind.mdb"
-            SelectCommand="SELECT * FROM [Customers]" />
+        <div>
+            <dx:ASPxGridView ID="grid" runat="server" ClientInstanceName="grid" Width="100%" OnCustomCallback="grid_CustomCallback"
+                DataSourceID="AccessDataSource1" KeyFieldName="ProductID" AutoGenerateColumns="False">
+                <SettingsPager AlwaysShowPager="true"  Position="Top"/>
+                <SettingsAdaptivity AdaptivityMode="HideDataCells"></SettingsAdaptivity>
+                <Columns>
+                    <dx:GridViewDataColumn FieldName="ProductID" ReadOnly="True" VisibleIndex="1">
+                    </dx:GridViewDataColumn>
+                    <dx:GridViewDataColumn FieldName="ProductName" VisibleIndex="2">
+                    </dx:GridViewDataColumn>
+                    <dx:GridViewDataColumn FieldName="UnitPrice" VisibleIndex="3">
+                    </dx:GridViewDataColumn>
+                    <dx:GridViewDataColumn FieldName="UnitsOnOrder" VisibleIndex="4">
+                    </dx:GridViewDataColumn>
+                </Columns>
+            </dx:ASPxGridView>
+            <asp:AccessDataSource ID="AccessDataSource1" runat="server" DataFile="~/App_Data/nwind.mdb"
+                SelectCommand="SELECT [ProductID], [ProductName], [UnitPrice], [UnitsOnOrder] FROM [Products]"
+                InsertCommand="INSERT INTO [Products] ([ProductName], [UnitPrice], [UnitsOnOrder]) VALUES (?, ?, ?)"
+                UpdateCommand="UPDATE [Products] SET [ProductName] = ?, [UnitPrice] = ?, [UnitsOnOrder] = ? WHERE [ProductID] = ?"
+                DeleteCommand="DELETE FROM [Products] WHERE [ProductID] = ?">
+                <DeleteParameters>
+                    <asp:Parameter Name="ProductID" Type="Int32" />
+                </DeleteParameters>
+                <InsertParameters>
+                    <asp:Parameter Name="ProductName" Type="String" />
+                    <asp:Parameter Name="UnitPrice" Type="Decimal" />
+                    <asp:Parameter Name="UnitsOnOrder" Type="Int16" />
+                </InsertParameters>
+                <UpdateParameters>
+                    <asp:Parameter Name="ProductName" Type="String" />
+                    <asp:Parameter Name="UnitPrice" Type="Decimal" />
+                    <asp:Parameter Name="UnitsOnOrder" Type="Int16" />
+                    <asp:Parameter Name="ProductID" Type="Int32" />
+                </UpdateParameters>
+            </asp:AccessDataSource>
+        </div>
     </form>
 </body>
 </html>
+
